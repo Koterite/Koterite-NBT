@@ -1,9 +1,10 @@
 package br.com.gamemods.nbtmanipulator
 
-import junit.framework.TestCase
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class CompoundStringParserTest: TestCase() {
-
+class CompoundStringParserTest {
+    @Test
     fun testCompound() {
         assertEquals(NbtCompound(), NbtCompound("{}"))
         assertEquals(NbtCompound().also {
@@ -22,6 +23,7 @@ class CompoundStringParserTest: TestCase() {
         }, NbtCompound("""{"abc"=NbtLong(2), "dfg"=NbtByteArray[-4, 5, 127], "hij"=NbtList[NbtInt(1), NbtInt(2), NbtInt(3), NbtInt(4)]}"""))
     }
 
+    @Test
     fun testComplexCompound() {
         assertEquals(
             NbtCompound().also { main ->

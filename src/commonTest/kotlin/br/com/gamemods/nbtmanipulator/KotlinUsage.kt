@@ -1,8 +1,10 @@
 package br.com.gamemods.nbtmanipulator
 
-import junit.framework.TestCase
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
-class KotlinUsage: TestCase() {
+class KotlinUsage {
+    @Test
     fun testUsage() {
         val list = listOf(2,3,4,5,6).toNbtList()
         list += 7

@@ -1,9 +1,11 @@
 package br.com.gamemods.nbtmanipulator
 
-import junit.framework.TestCase
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class SimpleStringParserTest: TestCase() {
+class SimpleStringParserTest {
+    @Test
     fun testSimpleTags() {
         assertEquals(NbtByte((-128).toByte()), NbtByte("-128"))
         assertEquals(NbtByte(255), NbtByte.unsigned("255"))
@@ -20,6 +22,7 @@ class SimpleStringParserTest: TestCase() {
         assertEquals(NbtDouble(-1247e143), NbtDouble("-1247e143"))
     }
 
+    @Test
     fun testArrays() {
         assertEquals(NbtByteArray(byteArrayOf(32, 48, 127, -49)), NbtByteArray("[32, 48, 127, -49]"))
         assertEquals(NbtIntArray(intArrayOf(3225, 6484, -4891, 0, -415843255)), NbtIntArray("[3225, 6484, -4891, 0, -415843255]"))
@@ -27,18 +30,21 @@ class SimpleStringParserTest: TestCase() {
             NbtLongArray("[15648489415618, 15648747841152218, -15648489745415, 0]"))
     }
 
+    @Test
     fun testEmptyArrays() {
         assertEquals(NbtByteArray(), NbtByteArray("[]"))
         assertEquals(NbtIntArray(), NbtIntArray("[]"))
         assertEquals(NbtLongArray(), NbtLongArray("[]"))
     }
 
+    @Test
     fun testIllegalArrays() {
         assertFailsWith(NumberFormatException::class) { NbtByteArray("[-130]") }
         assertFailsWith(IllegalArgumentException::class) { NbtIntArray("[5") }
         assertFailsWith(IllegalArgumentException::class) { NbtLongArray("[1,2,3]") }
     }
 
+    @Test
     fun testByteRange() {
         assertFailsWith(NumberFormatException::class) { NbtByte(256) }
         assertFailsWith(NumberFormatException::class) { NbtByte("256") }

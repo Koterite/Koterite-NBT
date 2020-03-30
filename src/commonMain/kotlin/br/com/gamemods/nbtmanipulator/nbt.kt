@@ -2,6 +2,10 @@
 
 package br.com.gamemods.nbtmanipulator
 
+import br.com.gamemods.koterite.annotation.JvmThrows
+import br.com.gamemods.koterite.annotation.Throws
+import kotlin.jvm.JvmStatic
+
 /**
  * The root component of a file, it contains a hint for the file name and the first tag in the file.
  * @property name The key for the file name. Empty in most cases.
@@ -11,7 +15,7 @@ package br.com.gamemods.nbtmanipulator
  */
 data class NbtFile(var name: String, var tag: NbtTag) {
     var compound: NbtCompound
-        @Throws(ClassCastException::class)
+        @JvmThrows(ClassCastException::class)
         get() = tag as NbtCompound
         set(value) {
             tag = value
@@ -50,7 +54,7 @@ sealed class NbtTag {
      *
      * Be aware that this may be a slow operation on big lists, arrays or compounds.
      */
-    protected open fun toTechnicalString() = "${this::class.java.simpleName}($stringValue)"
+    protected open fun toTechnicalString() = "${this::class.simpleName}($stringValue)"
 
     /**
      * A technical string representation of this tag, containing the tag type and it's value,
@@ -358,7 +362,7 @@ data class NbtByteArray(var value: ByteArray): NbtTag() {
      */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other == null || this::class != other::class) return false
 
         other as NbtByteArray
 
@@ -515,10 +519,10 @@ class NbtList<T: NbtTag> private constructor(private val tags: ArrayList<T>): Nb
     }
 
     private fun checkTagType(tag: NbtTag) {
-        val childrenType = firstOrNull()?.javaClass ?: return
-        require(childrenType == tag.javaClass) {
+        val childrenType = (firstOrNull() ?: return)::class
+        require(childrenType == tag::class) {
             "NbtList must have all children tags of the same type. \n" +
-                    "Tried to add a ${tag.javaClass.simpleName} tag in a NbtList of ${childrenType.javaClass.simpleName}"
+                    "Tried to add a ${tag::class.simpleName} tag in a NbtList of ${childrenType::class.simpleName}"
         }
     }
 
@@ -1368,7 +1372,7 @@ data class NbtIntArray(var value: IntArray): NbtTag() {
      */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other == null || this::class != other::class) return false
 
         other as NbtIntArray
 
@@ -1444,7 +1448,7 @@ data class NbtLongArray(var value: LongArray) : NbtTag() {
      */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other == null || this::class != other::class) return false
 
         other as NbtLongArray
 

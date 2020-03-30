@@ -27,7 +27,7 @@ internal class NbtCompoundStringParser(value: String): ComplexNbtStringParser('{
         require(startIndex < input.length) { "Invalid input. Expected entry value." }
         val tag = parseTag()
         result[key] = tag
-        if (tag.javaClass == NbtString::class.java) {
+        if (tag::class == NbtString::class) {
             endIndex += 2
         } else if (closeChar == ')') {
             endIndex++

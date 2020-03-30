@@ -1,9 +1,10 @@
 package br.com.gamemods.nbtmanipulator
 
-import junit.framework.TestCase
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class ListStringParserTest: TestCase() {
-
+class ListStringParserTest {
+    @Test
     fun testListOfSimpleTags() {
         assertEquals(NbtList<NbtInt>(), NbtList<NbtInt>("[]"))
         assertEquals(listOf<Byte>(1, 2, -128).toNbtList(), NbtList<NbtByte>("[NbtByte(1), NbtByte(2), NbtByte(-128)]"))
@@ -14,6 +15,7 @@ class ListStringParserTest: TestCase() {
         assertEquals(listOf(1.1, 2.1, -128.1).toNbtList(), NbtList<NbtDouble>("[NbtDouble(1.1), NbtDouble(2.1), NbtDouble(-128.1)]"))
     }
 
+    @Test
     fun testListOfArrayTags() {
         assertEquals(listOf(listOf(1,2,3), listOf(4,5,6)).toNbtList(), NbtList<NbtList<NbtInt>>(
             "[NbtList[NbtInt(1), NbtInt(2), NbtInt(3)], NbtList[NbtInt(4), NbtInt(5), NbtInt(6)]]"
@@ -32,6 +34,7 @@ class ListStringParserTest: TestCase() {
         ))
     }
 
+    @Test
     fun testListOfStrings() {
         assertEquals(listOf("abc", "def").toNbtList(), NbtList<NbtString>(
             """[NbtString("abc"), NbtString("def")]"""

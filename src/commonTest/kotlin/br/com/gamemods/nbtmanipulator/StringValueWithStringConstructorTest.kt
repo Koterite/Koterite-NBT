@@ -1,13 +1,15 @@
 package br.com.gamemods.nbtmanipulator
 
-import junit.framework.TestCase
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-class StringValueWithStringConstructorTest: TestCase() {
-
+class StringValueWithStringConstructorTest {
     private fun <V: Any, T: NbtTag> testEquality(value: V, typed: (V) -> T, string: (String) -> T, getter: (T) -> V) {
         assertEquals(value, getter(string(typed(value).stringValue)))
     }
 
+    @Test
     fun testSimpleTags() {
         testEquality((-28).toByte(), ::NbtByte, ::NbtByte, NbtByte::signed)
         testEquality((-3255).toShort(), ::NbtShort, ::NbtShort, NbtShort::value)
@@ -18,12 +20,14 @@ class StringValueWithStringConstructorTest: TestCase() {
         testEquality("Hello \"123\")Injection?", ::NbtString, ::NbtString, NbtString::value)
     }
 
+    @Test
     fun testArrays() {
         assertTrue(byteArrayOf(-28 ,0 , 127).contentEquals(NbtByteArray(NbtByteArray(byteArrayOf(-28 ,0 , 127)).stringValue).value))
         assertTrue(intArrayOf(-28 ,0 , 127).contentEquals(NbtIntArray(NbtIntArray(intArrayOf(-28 ,0 , 127)).stringValue).value))
         assertTrue(longArrayOf(-28 ,0 , 127).contentEquals(NbtLongArray(NbtLongArray(longArrayOf(-28 ,0 , 127)).stringValue).value))
     }
 
+    @Test
     fun testLists() {
         val constructor1 = { input: Collection<NbtTag> -> NbtList(input) }
         val constructor2 = { input: String -> NbtList<NbtTag>(input) }

@@ -143,7 +143,7 @@ internal abstract class ComplexNbtStringParser(fatherOpenChar: Char, fatherClose
     }
 
     private companion object {
-        private val constructors = mapOf(
+        private val constructors = mapOf<String, (String) -> NbtTag>(
             "NbtByte" to ::NbtByte,
             "NbtShort" to ::NbtShort,
             "NbtInt" to ::NbtInt,

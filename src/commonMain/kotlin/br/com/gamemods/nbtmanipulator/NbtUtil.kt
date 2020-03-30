@@ -3,6 +3,8 @@
 
 package br.com.gamemods.nbtmanipulator
 
+import kotlin.jvm.JvmName
+
 internal const val BYTE_TRUE: Byte = 1
 
 internal inline fun <reified Nbt: NbtTag> NbtList<*>.cast(): NbtList<Nbt> {
